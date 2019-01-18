@@ -11,10 +11,26 @@
     <header>
       <section class="container">
         <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
+          <div class="header">
+              <ol class="breadcrumb text-right">
+                <%= if @current_user do %>
+                <li> <%= @current_user.username %> </li>
+                  <li> 
+                  <%= link "Log out", to: RumblWeb.Router.Helpers.session_path(@conn, :delete, @current_user), method: "delete" %>
+                  </li>
+
+                <%= else %>
+
+                  <li> <%= link "Register", to: RumblWeb.Router.Helpers.user_path(@conn, :new) %> </li>
+                  <li> <%= link "Log in", to: RumblWeb.Router.Helpers.session_path(@conn, :new) %> </li>
+               
+                  <% end %>
+              </ol>
+      
+              <span class="logo"></span>
+            </div>
         </nav>
+
         <a href="http://phoenixframework.org/" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
         </a>
@@ -25,6 +41,7 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
+
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
