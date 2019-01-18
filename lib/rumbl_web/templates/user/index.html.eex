@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	table, th, td {border: 1px solid black;
+					border-collapse: collapse;}
+	th, td {padding: 5px;}
+</style>
+</head>
+<body>
+	
+
+	<h2> List of Users</h2>
+
+	<p> This is a table formated in Templates using HTML</p>
+
+	<p> Tables starts with Table tag, then heading and row, and data </p>
+
+	<table style= "width:100%">
+		<thead>
+			<tr>
+				<th style = "color: blue;"> Name </th>
+				<th style = "color: blue;"> Username </th>
+							</tr>
+		</thead>
+		<tbody>
+			
+			<%= for user <- @users do %>
+			
+			<tr>
+				<td> <%= user.name %> </td>
+				<td style = "color: red;"> <%= user.username %> </td>
+				
+
+				<td>
+					<%= link "Show", to: Routes.user_path(@conn, :show, user) %>
+					<%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
+					<%= link "Delete", to: Routes.user_path(@conn, :delete, user) %>
+				</td>
+			</tr>
+
+			<% end %>
+
+		</tbody>
+	</table>
+</body>
+</html>
